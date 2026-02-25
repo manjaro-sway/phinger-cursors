@@ -1,4 +1,4 @@
 _extends: manjaro-contrib/.github
 repository:
   homepage: https://github.com/phisch/phinger-cursors.git
-
+  topics: arch, package, any
