@@ -12,13 +12,11 @@ concurrency:
 jobs:
   rebase:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
-      pull-requests: write
-      actions: write
     steps:
       - name: checkout
         uses: actions/checkout@main
+        with:
+          token: ${{ secrets.BOOTSTRAP_WORKFLOWS || github.token }}
       - run: yq '.repository.topics = "arch, package"' -i .github/settings.yml
       - id: version
         uses: manjaro-contrib/action-pkgbuild-info@main
@@ -50,6 +48,7 @@ jobs:
       - name: rebase
         uses: manjaro-contrib/action-rebase@main
         with:
+          token: ${{ secrets.BOOTSTRAP_WORKFLOWS || github.token }}
           upstream: https://github.com/phisch/phinger-cursors.git
           dispatch-target: ${{ vars.PACKAGES_REPO }}
           dispatch-token: ${{ secrets.DISPATCH_TOKEN }}
